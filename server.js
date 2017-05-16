@@ -10,24 +10,51 @@ var parseString = require('xml2js').parseString;
 
 
 
-
-
 app.get('/api/search', (req, res, next) => {
     //send request to goodreads
     let testQueryString = `?key=${process.env.GOODREADS_API_KEY}&q=Ender%27s+Game`
     fetch(`https://www.goodreads.com/search/index.xml${testQueryString}`)
-        .then(async (response) => {
-            //check the response
-            console.log("response in xml", response);
-            let grResponse = await parseString(response);
-            console.log('parsed xml from GR', grResponse);
+        .then((response) => {
+            return response.text()
         })
-        .then(() => {
-            res.status(200).json({ response: "Yay!"});
-        });
-
-
+        .then((textResponse) => {
+            return new Promise((resolve, reject) => {
+                parseString(textResponse, (err, json) => {
+                    resolve(json)
+                })  
+            })          
+        })
+        .then((json) => {
+            res.status(200).json(json);
+        })
+        .catch((err) => {
+            res.json({err: "There was an error"});
+        })
 });
+
+
+app.get('/api/books/:id', (req, res, next) => {
+    //send request to goodreads
+    let testQueryString = `?key=${process.env.GOODREADS_API_KEY}`
+    fetch(`https://www.goodreads.com/book/show/50.xml${testQueryString}`)
+        .then((response) => {
+            return response.text()
+        })
+        .then((textResponse) => {
+            return new Promise((resolve, reject) => {
+                parseString(textResponse, (err, json) => {
+                    resolve(json)
+                })  
+            })          
+        })
+        .then((json) => {
+            res.status(200).json(json);
+        })
+        .catch((err) => {
+            res.json({err: "There was an error"});
+        })
+});
+
 
 
 app.get('/', (req, res, next) => {
