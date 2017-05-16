@@ -8,7 +8,7 @@ import React from "react";
 class ContentContainer extends React.Component {
 	componentDidMount() {
 		this.props.getBooks();
-		// this.props.getSelectedBook();
+		this.props.getSelectedBook(1);
 	}
 
 	render() {
@@ -40,8 +40,8 @@ const mapDispatchtoProps = (dispatch) => {
 		getBooks: () => {
 			dispatch(getBooks("Ender"));
 		},
-		getSelectedBook: () => {
-			dispatch(getSelectedBook(1))
+		getSelectedBook: (id) => {
+			dispatch(getSelectedBook(id));
 		}
 	};
 };

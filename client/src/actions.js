@@ -38,7 +38,7 @@ export function getBooks(searchText) {
                 }
                 return response.json();
             })
-            .then((json) => {                
+            .then((json) => {
                 let books = json.GoodreadsResponse.search[0].results[0].work;
                 console.log(books);
                 dispatch(getBooksSuccess(books));
@@ -90,12 +90,18 @@ export function getSelectedBook(id) {
                 }
                 return response.json();
             })
-            .then((json) => {                
+            .then((json) => {
                 //let reviews = json;
-                console.log(JSON.stringify(json, null, 2));
+                const book = {
+                    title: json.title[0],
+                    id: json.id[0],
+                    image_url: json.image_url[0],
+                    description: json.description[0],
+                    author: json.authors[0].author[0].name[0],
+                    reviews_widget: json.reviews_widget[0]
+                };
                 //clean up json response
-                
-                dispatch(selectedBookSuccess(json));
+                dispatch(selectedBookSuccess(book));
             })
             .catch((error) => {
                 dispatch(selectedBookFailure(error));
