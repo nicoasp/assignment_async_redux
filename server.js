@@ -11,9 +11,10 @@ var parseString = require('xml2js').parseString;
 
 
 app.get('/api/search', (req, res, next) => {
+    let q = req.query.q;
     //send request to goodreads
-    let testQueryString = `?key=${process.env.GOODREADS_API_KEY}&q=Ender%27s+Game`
-    fetch(`https://www.goodreads.com/search/index.xml${testQueryString}`)
+    let queryString = `?q=${q}&key=${process.env.GOODREADS_API_KEY}`
+    fetch(`https://www.goodreads.com/search/index.xml${queryString}`)
         .then((response) => {
             return response.text()
         })

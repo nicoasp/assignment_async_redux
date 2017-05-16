@@ -31,7 +31,19 @@ export function getBooks(searchText) {
         //dispatch request to state
         dispatch(getBooksRequest());
         //call the goodreads api for searching on text
-        
-        
+        fetch(`api/search?q=${searchText}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Response not ok")
+                }
+
+                return response.json();
+            })
+            .then((json) => {
+                dispatch(getBooksSuccess(json));
+            })
+            .catch((error) => {
+                dispatch(getBooksFailure(error));
+            })
     };
 }
