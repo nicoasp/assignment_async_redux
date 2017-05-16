@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import BooksListContainer from './containers/BooksListContainer';
+import ContentContainer from './containers/ContentContainer';
 import SearchFormContainer from './containers/SearchFormContainer';
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App container">
       	<SearchFormContainer />
-      	<BooksListContainer />
+      	<ContentContainer />
       </div>
     );
   }

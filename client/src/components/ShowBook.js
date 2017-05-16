@@ -1,10 +1,10 @@
 import React from 'react'
 
 // Custom card component for each user's data
-const ShowBook = ({book}) => {
-  const title = book.best_book[0].title[0];
-  const author = book.best_book[0].author[0].name[0];
-  const imageUrl = book.best_book[0].image_url[0];
+const BookCard = ({book}) => {
+  const title = null;
+  const author = null;
+  const imageUrl = null;
 
   // Set the CSS max-width attribute directly in the
   // element. `style` accepts a JS object and the
@@ -12,7 +12,7 @@ const ShowBook = ({book}) => {
   // Also using new card class for Bootstrap 4.
   return (
     <div
-      className="ShowBook card"
+      className="BookCard card"
       style={{maxWidth: '128px'}}
     >
       <img
@@ -28,4 +28,4 @@ const ShowBook = ({book}) => {
   )
 }
 
-export default ShowBook
+export default BookCard
