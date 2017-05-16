@@ -15,3 +15,7 @@ const SearchForm = ({onSubmit}) => {
 }
 
 export default SearchForm;
+
+
+title
+author

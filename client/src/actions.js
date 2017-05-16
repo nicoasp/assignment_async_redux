@@ -38,8 +38,7 @@ export function getBooks(searchText) {
                 }
                 return response.json();
             })
-            .then((json) => {
-                let books = json.GoodreadsResponse.search[0].results[0].work;
+            .then((books) => {
                 console.log(books);
                 dispatch(getBooksSuccess(books));
             })
