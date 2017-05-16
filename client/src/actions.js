@@ -48,3 +48,57 @@ export function getBooks(searchText) {
             });
     };
 }
+
+export const REQUEST_SELECTED_BOOK = "REQUEST_SELECTED_BOOK";
+export const SELECTED_BOOK_SUCCESS = "SELECTED_BOOK_SUCCESS";
+export const SELECTED_BOOK_FAILURE = "SELECTED_BOOK_FAILURE";
+export const CLEAR_SELECTED_BOOK = "CLEAR_SELECTED_BOOK";
+
+export function selectedBookSuccess(data) {
+    return {
+        type: SELECTED_BOOK_SUCCESS,
+        data
+    };
+}
+
+export function requestSelectedBook() {
+    return {
+        type: REQUEST_SELECTED_BOOK
+    };
+}
+export function selectedBookFailure(error) {
+    return {
+        type: SELECTED_BOOK_FAILURE,
+        error
+    };
+}
+export function clearSelectedBook() {
+    return {
+        type: CLEAR_SELECTED_BOOK
+    };
+}
+
+export function getSelectedBook(id) {
+    return (dispatch) => {
+        //dispatch request to state
+        dispatch(requestSelectedBook());
+        //call the goodreads api for searching on text
+        fetch(`api/books/${id}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Response not ok");
+                }
+                return response.json();
+            })
+            .then((json) => {                
+                //let reviews = json;
+                console.log(JSON.stringify(json, null, 2));
+                //clean up json response
+                
+                dispatch(selectedBookSuccess(json));
+            })
+            .catch((error) => {
+                dispatch(selectedBookFailure(error));
+            });
+    };
+}

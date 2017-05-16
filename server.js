@@ -35,9 +35,10 @@ app.get('/api/search', (req, res, next) => {
 
 
 app.get('/api/books/:id', (req, res, next) => {
-    //send request to goodreads
-    let testQueryString = `?key=${process.env.GOODREADS_API_KEY}`
-    fetch(`https://www.goodreads.com/book/show/50.xml${testQueryString}`)
+    const id = req.params.id || 1;
+    let queryString = `?key=${process.env.GOODREADS_API_KEY}`
+    //request data as json with extension
+    fetch(`https://www.goodreads.com/book/show/${id}.json${queryString}`)
         .then((response) => {
             return response.text()
         })
@@ -49,7 +50,8 @@ app.get('/api/books/:id', (req, res, next) => {
             })          
         })
         .then((json) => {
-            res.status(200).json(json);
+            //grab book infomation from response;
+            res.status(200).json(json.GoodreadsResponse.book[0]);
         })
         .catch((err) => {
             res.json({err: "There was an error"});

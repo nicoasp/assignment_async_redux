@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {getBooks} from "../actions";
+import {getBooks, clearSelectedBook} from "../actions";
 import SearchForm from "../components/SearchForm";
 import React from "react";
 import serialize from "form-serialize";
@@ -12,6 +12,7 @@ const mapDispatchtoProps = (dispatch) => {
       const form = e.target;
       const data = serialize(form, {hash: true});
 			dispatch(getBooks(data.searchWord));
+			dispatch(clearSelectedBook());
 		}
 	};
 };
