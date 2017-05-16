@@ -10,9 +10,10 @@ class BooksListContainer extends React.Component {
 	}
 
 	render() {
+	    const {books, isFetching } = this.props;
 		return (
 			<BooksList books={books} isFetching={isFetching} />
-		)
+		);
 	}
 }
 
@@ -21,15 +22,15 @@ const mapStateToProps = (state) => {
 	return {
 		books: state.books.books,
 		isFetching: state.books.isFetching
-	}
-}
+	};
+};
 
 const mapDispatchtoProps = (dispatch) => {
 	return {
 		getBooks: () => {
-			dispach(getBooks("Ender"));
+			dispatch(getBooks("Ender"));
 		}
-	}
-}
+	};
+};
 
-export connect(mapStateToProps, mapDispatchtoProps)(BooksListContainer);
+export default connect(mapStateToProps, mapDispatchtoProps)(BooksListContainer);

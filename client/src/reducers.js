@@ -3,7 +3,7 @@ import {
     GET_BOOKS_REQUEST,
     GET_BOOKS_FAILURE,
     GET_BOOKS_SUCCESS
-} from '../actions';
+} from './actions';
 
 const initialState = {
     isFetching: false,
