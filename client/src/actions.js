@@ -14,7 +14,7 @@ export function getBooksFailure(error) {
 
 export function getBooksSuccess(data) {
     return {
-        type: GET_BOOKS_REQUEST,
+        type: GET_BOOKS_SUCCESS,
         data
     };
 }
@@ -33,15 +33,15 @@ export function getBooks(searchText) {
         //call the goodreads api for searching on text
         fetch(`api/search?q=${searchText}`)
             .then((response) => {
-                console.log("response from server received");
-                console.log("response", response);
                 if (!response.ok) {
                     throw new Error("Response not ok")
                 }
                 return response.json();
             })
-            .then((json) => {
-                dispatch(getBooksSuccess(json));
+            .then((json) => {                
+                let books = json.GoodreadsResponse.search[0].results[0].work;
+                console.log(books);
+                dispatch(getBooksSuccess(books));
             })
             .catch((error) => {
                 dispatch(getBooksFailure(error));

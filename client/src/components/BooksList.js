@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import BookCard from "./BookCard";
 
 let booksList = (books) => {
 	return books.map((book) => {
-		return (<p>{book.title}</p>)
+		return (<BookCard book={book} />)
 	})
 }
 const BooksList = ({books, isFetching}) => {
@@ -11,7 +12,7 @@ const BooksList = ({books, isFetching}) => {
 		return (<p>Loading</p>)
 	}
 	return (
-        <div>
+        <div className="card-group">
             {booksList(books)}
         </div>
 	);

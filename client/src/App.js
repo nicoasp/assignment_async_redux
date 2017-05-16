@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import './App.css';
+
 import BooksListContainer from './containers/BooksListContainer';
+import SearchFormContainer from './containers/SearchFormContainer';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App container">
+      	<SearchFormContainer />
       	<BooksListContainer />
       </div>
     );
