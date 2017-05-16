@@ -1,0 +1,31 @@
+{
+  "name": "assignment_async_redux",
+  "version": "1.0.0",
+  "description": "Reading is FUNdamental... for learning async actions in Redux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "start-dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rttomlinson/assignment_async_redux.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rttomlinson/assignment_async_redux/issues"
+  },
+  "homepage": "https://github.com/rttomlinson/assignment_async_redux#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "isomorphic-fetch": "^2.2.1",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
