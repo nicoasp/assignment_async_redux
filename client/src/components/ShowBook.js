@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-const Widget = (widget) => {
-    return (
-        {widget}    
-    );
+const makeHTML = (text) => {
+    return {
+        __html: text
+    };
 }
 
 
@@ -29,11 +29,8 @@ const BookCard = ({book}) => {
         <h4>{title}</h4>
         <h5>{author}</h5>
       </div>
-      <div className="ReviewsWidget">
-        {Widget(reviews_widget)}
+      <div className="ReviewsWidget" dangerouslySetInnerHTML={makeHTML(reviews_widget)}>
       </div>
-      
-      
     </div>
   )
 }
