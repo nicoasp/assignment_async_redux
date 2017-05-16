@@ -11,7 +11,12 @@ const mapDispatchtoProps = (dispatch) => {
 			e.preventDefault();
       const form = e.target;
       const data = serialize(form, {hash: true});
-			dispatch(getBooks(data.searchWord));
+      const searchParams = {
+		    author: data.author ? data.author : "",
+		    title: data.title ? data.title : ""
+      }
+      console.log(searchParams);
+			dispatch(getBooks(searchParams));
 			dispatch(clearSelectedBook());
 		}
 	};

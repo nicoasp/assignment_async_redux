@@ -38,44 +38,54 @@ app.get('/api/search', (req, res, next) => {
                     err: "There was an error"
                 });
             })
-    }
-    // both are present
-    let queryString = `?q=${q}&key=${process.env.GOODREADS_API_KEY}`
-    let titleFetch = fetch(`https://www.goodreads.com/search/index.xml${queryString}`)
-        .then((response) => {
-            return response.text()
-        })
-        .then((textResponse) => {
-            return new Promise((resolve, reject) => {
-                parseString(textResponse, (err, json) => {
-                    resolve(json)
-                })
+    } else {
+        // both are present
+        let authorQueryString = `?q=${author}&key=${process.env.GOODREADS_API_KEY}&search[field]=author`
+        let titleQueryString = `?q=${title}&key=${process.env.GOODREADS_API_KEY}&search[field]=title`
+
+        let titleFetch = fetch(`https://www.goodreads.com/search/index.xml${titleQueryString}`)
+            .then((response) => {
+                return response.text()
             })
-        });
-
-    let authorFetch = fetch(`https://www.goodreads.com/search/index.xml${queryString}`)
-        .then((response) => {
-            return response.text()
-        })
-        .then((textResponse) => {
-            return new Promise((resolve, reject) => {
-                parseString(textResponse, (err, json) => {
-                    resolve(json)
+            .then((textResponse) => {
+                return new Promise((resolve, reject) => {
+                    parseString(textResponse, (err, json) => {
+                        resolve(json)
+                    })
                 })
+            });
+
+        let authorFetch = fetch(`https://www.goodreads.com/search/index.xml${authorQueryString}`)
+            .then((response) => {
+                return response.text()
             })
-        });
+            .then((textResponse) => {
+                return new Promise((resolve, reject) => {
+                    parseString(textResponse, (err, json) => {
+                        resolve(json)
+                    })
+                })
+            });
 
-    Promise.all([titleFetch, authorFetch])
-        .then(([booksByTitle, booksByAuthor]) => {
-
-            booksByTitle = booksByTitle.GoodreadsResponse.search[0].results[0].work;
-            booksByAuthor = booksByAuthor.GoodreadsResponse.search[0].results[0].work;
+        Promise.all([titleFetch, authorFetch])
+            .then(([booksByTitle, booksByAuthor]) => {
+                booksByTitle = booksByTitle.GoodreadsResponse.search[0].results[0].work;
+                booksByAuthor = booksByAuthor.GoodreadsResponse.search[0].results[0].work;
+                let bookIdsByTitle = booksByTitle.map((book) => {
+                    return book.best_book[0].id[0]._;
+                })
+                let combinedBooks = booksByAuthor.filter((book) => {
+                    return bookIdsByTitle.includes(book.best_book[0].id[0]._);
+                })
+                res.status(200).json(combinedBooks);
+            })
+            .catch((err) => {
+                res.json({
+                    err: "There was an error"
+                });                
             
-            
-
-
-        })
-
+            })
+        }
 
 });
 

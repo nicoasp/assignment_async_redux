@@ -26,12 +26,12 @@ export function getBooksRequest() {
 }
 
 
-export function getBooks(searchText) {
+export function getBooks(searchParams) {
     return (dispatch) => {
         //dispatch request to state
         dispatch(getBooksRequest());
         //call the goodreads api for searching on text
-        fetch(`api/search?q=${searchText}`)
+        fetch(`api/search?title=${searchParams.title}&author=${searchParams.author}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Response not ok")
