@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {getBooks, getSelectedBook} from "../actions";
+import {getBooks, getSelectedBook, clearSelectedBook} from "../actions";
 import BooksList from "../components/BooksList";
 import ShowBook from "../components/ShowBook";
 import React from "react";
@@ -8,18 +8,17 @@ import React from "react";
 class ContentContainer extends React.Component {
 	componentDidMount() {
 		this.props.getBooks();
-		this.props.getSelectedBook(1);
 	}
 
 	render() {
-	  const {books, isBooksListFetching, isSelectedBookFetching, selectedBook } = this.props;
+	  const {books, clearSelectedBook, isBooksListFetching, isSelectedBookFetching, selectedBook } = this.props;
 	  if (!selectedBook) {
 			return (
-				<BooksList books={books} isFetching={isBooksListFetching} />
+				<BooksList books={books} isFetching={isBooksListFetching} getSelectedBook={this.props.getSelectedBook} />
 			);
 		} else {
 			return (
-				<ShowBook book={selectedBook} isFetching={isSelectedBookFetching} />
+				<ShowBook clearSelectedBook={clearSelectedBook} book={selectedBook} isFetching={isSelectedBookFetching} />
 			);			
 		}
 	}
@@ -42,6 +41,10 @@ const mapDispatchtoProps = (dispatch) => {
 		},
 		getSelectedBook: (id) => {
 			dispatch(getSelectedBook(id));
+		},
+		clearSelectedBook: () => {
+			console.log("clearSelectedBook called")
+			dispatch(clearSelectedBook());
 		}
 	};
 };

@@ -2,18 +2,18 @@ import React from "react";
 import PropTypes from 'prop-types';
 import BookCard from "./BookCard";
 
-let booksList = (books) => {
+let booksList = (books, getSelectedBook) => {
 	return books.map((book) => {
-		return (<BookCard book={book} />)
+		return (<BookCard book={book} getSelectedBook={getSelectedBook}/>)
 	})
 }
-const BooksList = ({books, isFetching}) => {
+const BooksList = ({books, isFetching, getSelectedBook}) => {
 	if (isFetching) {
 		return (<p>Loading</p>)
 	}
 	return (
         <div className="card-group">
-            {booksList(books)}
+            {booksList(books, getSelectedBook)}
         </div>
 	);
 };

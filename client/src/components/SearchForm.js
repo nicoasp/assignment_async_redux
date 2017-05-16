@@ -9,7 +9,7 @@ const SearchForm = ({onSubmit}) => {
 			<InputGroup name="searchWord" labelText="Search by Title or Author">
 				<Input name="searchWord" />
 			</InputGroup>
-			<Button type="submit">Search</Button>
+			<Button type="submit" color="success">Search</Button>			
 		</form>
 	)
 }
